@@ -1,4 +1,4 @@
-name: CROP CI/CD Pipeline
+name: Raju Hisaab CI/CD Pipeline
 
 on:
   push:
@@ -14,7 +14,7 @@ permissions:
   id-token: write
 
 jobs:
-  ci:
+  continuous-integration:
     name: Continuous Integration
     runs-on: ubuntu-latest
 
@@ -22,31 +22,56 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Check index.html exists
+      - name: Verify project files
         run: |
-          echo "Checking for index.html..."
+          echo "Checking project files..."
           test -f index.html
-          echo "index.html found successfully."
+          echo "index.html exists."
 
       - name: Validate HTML structure
         run: |
-          echo "Validating HTML..."
+          echo "Validating HTML structure..."
+
+          grep -qi "<!DOCTYPE html>" index.html
           grep -qi "<html" index.html
           grep -qi "<head" index.html
           grep -qi "<body" index.html
+          grep -qi "<script" index.html
+          grep -qi "</script>" index.html
           grep -qi "</html>" index.html
-          echo "HTML validation successful."
 
-      - name: Check required content
+          echo "HTML structure validation passed."
+
+      - name: Validate application content
         run: |
-          echo "Checking page content..."
-          test -s index.html
-          echo "index.html is not empty."
-          echo "All CI checks passed."
+          echo "Checking application content..."
 
-  cd:
+          grep -qi "Raju Hisaab" index.html
+          grep -qi "Add Crop" index.html
+          grep -qi "Add Expense" index.html
+          grep -qi "Export Data" index.html
+          grep -qi "Import Data" index.html
+
+          echo "Application content validation passed."
+
+      - name: Validate JavaScript functionality
+        run: |
+          echo "Checking JavaScript functions..."
+
+          grep -q "localStorage" index.html
+          grep -q "calculateTotals" index.html
+          grep -q "renderCrops" index.html
+          grep -q "saveData" index.html
+          grep -q "generateId" index.html
+
+          echo "JavaScript validation passed."
+
+      - name: CI successful
+        run: echo "All Continuous Integration checks passed successfully!"
+
+  continuous-deployment:
     name: Continuous Deployment
-    needs: ci
+    needs: continuous-integration
     if: github.ref == 'refs/heads/main'
 
     runs-on: ubuntu-latest
@@ -60,7 +85,7 @@ jobs:
           mkdir public
           cp index.html public/index.html
 
-      - name: Upload Pages artifact
+      - name: Upload GitHub Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: public
