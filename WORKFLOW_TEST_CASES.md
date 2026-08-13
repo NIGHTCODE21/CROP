@@ -1,20 +1,28 @@
 # CI/CD Workflow Test Cases
 
 ## Project
-CROP
+Raju Hisaab
 
-## Workflow
-CROP CI/CD Pipeline
+## CI/CD Tool
+GitHub Actions
 
-| TC ID | Test Case | Steps | Expected Result |
-|------|-----------|-------|-----------------|
-| TC01 | Verify workflow triggers on push | Push a change to main branch | GitHub Actions workflow should start automatically |
-| TC02 | Verify index.html exists | Run CI workflow | Workflow should verify that index.html exists |
-| TC03 | Verify HTML structure | Run CI workflow | Workflow should verify html, head and body tags |
-| TC04 | Verify non-empty HTML file | Run CI workflow | Workflow should pass when index.html contains content |
-| TC05 | Verify CI failure for missing index.html | Temporarily remove index.html and push | CI should fail and deployment should not execute |
-| TC06 | Verify CD runs after successful CI | Push valid code to main | Continuous Deployment should execute after CI passes |
-| TC07 | Verify GitHub Pages deployment | Successfully run CD | Website should be deployed to GitHub Pages |
-| TC08 | Verify pull request workflow | Create a pull request to main | CI should run for the pull request |
-| TC09 | Verify deployment dependency | Create a valid push to main | CD should wait for CI to complete successfully |
-| TC10 | Verify updated website | Modify index.html and push to main | Updated website should be deployed automatically |
+## Deployment Platform
+GitHub Pages
+
+| TC ID | Test Case | Test Steps | Expected Result |
+|------|-----------|------------|-----------------|
+| TC01 | Verify workflow triggers on push | Push a change to the main branch | GitHub Actions workflow starts automatically |
+| TC02 | Verify index.html exists | Run the CI workflow | CI verifies that index.html exists |
+| TC03 | Verify HTML structure | Run the CI workflow | DOCTYPE, HTML, HEAD, BODY and SCRIPT tags are detected |
+| TC04 | Verify application title | Run the CI workflow | Raju Hisaab title is detected successfully |
+| TC05 | Verify crop functionality exists | Run the CI workflow | Add Crop functionality is detected |
+| TC06 | Verify expense functionality exists | Run the CI workflow | Add Expense functionality is detected |
+| TC07 | Verify localStorage usage | Run the CI workflow | localStorage implementation is detected |
+| TC08 | Verify JavaScript functions | Run the CI workflow | Required JavaScript functions are detected |
+| TC09 | Verify CI-to-CD dependency | Push valid code to main | CD starts only after CI succeeds |
+| TC10 | Verify deployment | Push valid code to main | Website is deployed to GitHub Pages |
+| TC11 | Verify Pull Request CI | Create a pull request to main | CI runs automatically |
+| TC12 | Verify failed CI prevents deployment | Introduce an invalid/missing required element | CI fails and CD does not execute |
+| TC13 | Verify updated deployment | Modify index.html and push to main | Updated website is deployed automatically |
+| TC14 | Verify import/export functionality | Open deployed website and test Import/Export | Data import/export functionality works |
+| TC15 | Verify search and sorting | Open deployed website and test search/sort | Crops can be searched and sorted correctly |
